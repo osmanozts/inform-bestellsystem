@@ -30,3 +30,9 @@ export class InsufficientStockError extends DomainError {
     );
   }
 }
+
+export class ProductNotFoundError extends DomainError {
+  constructor(id: string) {
+    super(`Product with id "${id}" not found.`);
+  }
+}
