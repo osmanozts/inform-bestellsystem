@@ -22,5 +22,6 @@ const useCases = [
     { provide: PRODUCT_REPOSITORY, useClass: PrismaProductRepository },
     ...useCases,
   ],
+  exports: [PRODUCT_REPOSITORY],
 })
 export class ProductModule {}
