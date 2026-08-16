@@ -18,7 +18,13 @@ export async function fetchOrderById(id: string): Promise<Order> {
 
 export async function createOrder(body: CreateOrderInput): Promise<Order> {
   const { data, error } = await apiClient.POST('/orders', { body });
-  if (error || !data)
-    throw new Error('Bestellung konnte nicht angelegt werden.');
+  if (error || !data) {
+    const msg = (error as unknown as Record<string, unknown>)?.['message'];
+    throw new Error(
+      typeof msg === 'string'
+        ? msg
+        : 'Bestellung konnte nicht angelegt werden.',
+    );
+  }
   return data;
 }
