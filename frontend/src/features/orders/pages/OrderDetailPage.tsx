@@ -11,7 +11,8 @@ export function OrderDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { data: order, isLoading, isError, error } = useOrder(id ?? '');
-  const { data: products } = useProducts();
+  const { data: productsPage } = useProducts(1, 100);
+  const products = productsPage?.data;
 
   return (
     <Box>

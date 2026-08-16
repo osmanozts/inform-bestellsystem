@@ -4,416 +4,425 @@
  */
 
 export interface paths {
-    "/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["AppController_getHello"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+  '/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/products": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Alle Produkte auflisten */
-        get: operations["ProductController_findAll"];
-        put?: never;
-        /** Neues Produkt anlegen */
-        post: operations["ProductController_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get: operations['AppController_getHello'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/products': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/products/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Produkt per ID laden */
-        get: operations["ProductController_findOne"];
-        put?: never;
-        post?: never;
-        /** Produkt löschen */
-        delete: operations["ProductController_remove"];
-        options?: never;
-        head?: never;
-        /** Produkt aktualisieren */
-        patch: operations["ProductController_update"];
-        trace?: never;
+    get: operations['ProductController_findAll'];
+    put?: never;
+    post: operations['ProductController_create'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/products/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/orders": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** All orders */
-        get: operations["OrderController_findAll"];
-        put?: never;
-        /** Place a new order */
-        post: operations["OrderController_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get: operations['ProductController_findOne'];
+    put?: never;
+    post?: never;
+    delete: operations['ProductController_remove'];
+    options?: never;
+    head?: never;
+    patch: operations['ProductController_update'];
+    trace?: never;
+  };
+  '/orders': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/orders/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Order by ID */
-        get: operations["OrderController_findOne"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** All orders */
+    get: operations['OrderController_findAll'];
+    put?: never;
+    /** Place a new order */
+    post: operations['OrderController_create'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/orders/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
+    /** Order by ID */
+    get: operations['OrderController_findOne'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
 }
 export type webhooks = Record<string, never>;
 export interface components {
-    schemas: {
-        ProductResponseDto: {
-            /** @example 550e8400-e29b-41d4-a716-446655440000 */
-            id: string;
-            /** @example MacBook Pro 14" */
-            name: string;
-            /** @example 1999.99 */
-            price: number;
-            /** @example 15 */
-            stock: number;
-        };
-        CreateProductRequestDto: {
-            /** @example MacBook Pro 14" */
-            name: string;
-            /** @example 1999.99 */
-            price: number;
-            /** @example 15 */
-            stock: number;
-        };
-        UpdateProductRequestDto: {
-            /** @example MacBook Pro 16" */
-            name?: string;
-            /** @example 2499.99 */
-            price?: number;
-            /** @example 10 */
-            stock?: number;
-        };
-        OrderItemResponseDto: {
-            /** @example 550e8400-e29b-41d4-a716-446655440010 */
-            id: string;
-            /** @example 550e8400-e29b-41d4-a716-446655440000 */
-            productId: string;
-            /** @example 2 */
-            quantity: number;
-            /** @example 999.99 */
-            unitPrice: number;
-            /** @example 1999.98 */
-            subtotal: number;
-        };
-        OrderResponseDto: {
-            /** @example 550e8400-e29b-41d4-a716-446655440020 */
-            id: string;
-            /** @example 00000000-0000-0000-0000-000000000001 */
-            userId: string;
-            items: components["schemas"]["OrderItemResponseDto"][];
-            /** @example 1999.98 */
-            totalPrice: number;
-            /** @example 2026-08-16T10:00:00.000Z */
-            createdAt: string;
-        };
-        CreateOrderItemRequestDto: {
-            /** @example 550e8400-e29b-41d4-a716-446655440000 */
-            productId: string;
-            /** @example 2 */
-            quantity: number;
-        };
-        CreateOrderRequestDto: {
-            /** @example 00000000-0000-0000-0000-000000000001 */
-            userId: string;
-            items: components["schemas"]["CreateOrderItemRequestDto"][];
-        };
+  schemas: {
+    ProductResponseDto: {
+      /** @example 550e8400-e29b-41d4-a716-446655440000 */
+      id: string;
+      /** @example MacBook Pro 14" */
+      name: string;
+      /** @example 1999.99 */
+      price: number;
+      /** @example 15 */
+      stock: number;
     };
-    responses: never;
-    parameters: never;
-    requestBodies: never;
-    headers: never;
-    pathItems: never;
+    PaginatedProductsResponseDto: {
+      data: components['schemas']['ProductResponseDto'][];
+      /** @example 42 */
+      total: number;
+      /** @example 1 */
+      page: number;
+      /** @example 10 */
+      limit: number;
+    };
+    CreateProductRequestDto: {
+      /** @example MacBook Pro 14" */
+      name: string;
+      /** @example 1999.99 */
+      price: number;
+      /** @example 15 */
+      stock: number;
+    };
+    UpdateProductRequestDto: {
+      /** @example MacBook Pro 16" */
+      name?: string;
+      /** @example 2499.99 */
+      price?: number;
+      /** @example 10 */
+      stock?: number;
+    };
+    OrderItemResponseDto: {
+      /** @example 550e8400-e29b-41d4-a716-446655440010 */
+      id: string;
+      /** @example 550e8400-e29b-41d4-a716-446655440000 */
+      productId: string;
+      /** @example 2 */
+      quantity: number;
+      /** @example 999.99 */
+      unitPrice: number;
+      /** @example 1999.98 */
+      subtotal: number;
+    };
+    OrderResponseDto: {
+      /** @example 550e8400-e29b-41d4-a716-446655440020 */
+      id: string;
+      /** @example 00000000-0000-0000-0000-000000000001 */
+      userId: string;
+      items: components['schemas']['OrderItemResponseDto'][];
+      /** @example 1999.98 */
+      totalPrice: number;
+      /** @example 2026-08-16T10:00:00.000Z */
+      createdAt: string;
+    };
+    CreateOrderItemRequestDto: {
+      /** @example 550e8400-e29b-41d4-a716-446655440000 */
+      productId: string;
+      /** @example 2 */
+      quantity: number;
+    };
+    CreateOrderRequestDto: {
+      /** @example 00000000-0000-0000-0000-000000000001 */
+      userId: string;
+      items: components['schemas']['CreateOrderItemRequestDto'][];
+    };
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    AppController_getHello: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
+  AppController_getHello: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    ProductController_findAll: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ProductResponseDto"][];
-                };
-            };
-        };
+        content?: never;
+      };
     };
-    ProductController_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateProductRequestDto"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ProductResponseDto"];
-                };
-            };
-            /** @description Validierungsfehler */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
+  };
+  ProductController_findAll: {
+    parameters: {
+      query?: {
+        /** @description Seitennummer (1-basiert) */
+        page?: number;
+        /** @description Einträge pro Seite */
+        limit?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    ProductController_findOne: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ProductResponseDto"];
-                };
-            };
-            /** @description Produkt nicht gefunden */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
+        content: {
+          'application/json': components['schemas']['PaginatedProductsResponseDto'];
         };
+      };
     };
-    ProductController_remove: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Erfolgreich gelöscht */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Produkt nicht gefunden */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
+  };
+  ProductController_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    ProductController_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateProductRequestDto"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ProductResponseDto"];
-                };
-            };
-            /** @description Validierungsfehler */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Produkt nicht gefunden */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateProductRequestDto'];
+      };
     };
-    OrderController_findAll: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["OrderResponseDto"][];
-                };
-            };
+        content: {
+          'application/json': components['schemas']['ProductResponseDto'];
         };
+      };
+      /** @description Validierungsfehler */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
     };
-    OrderController_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateOrderRequestDto"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["OrderResponseDto"];
-                };
-            };
-            /** @description Validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Product not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Insufficient stock */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
+  };
+  ProductController_findOne: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
     };
-    OrderController_findOne: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["OrderResponseDto"];
-                };
-            };
-            /** @description Order not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
+        content: {
+          'application/json': components['schemas']['ProductResponseDto'];
         };
+      };
+      /** @description Produkt nicht gefunden */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
     };
+  };
+  ProductController_remove: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Erfolgreich gelöscht */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Produkt nicht gefunden */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ProductController_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateProductRequestDto'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ProductResponseDto'];
+        };
+      };
+      /** @description Validierungsfehler */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Produkt nicht gefunden */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  OrderController_findAll: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['OrderResponseDto'][];
+        };
+      };
+    };
+  };
+  OrderController_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateOrderRequestDto'];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['OrderResponseDto'];
+        };
+      };
+      /** @description Validation error */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Product not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Insufficient stock */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  OrderController_findOne: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['OrderResponseDto'];
+        };
+      };
+      /** @description Order not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
 }

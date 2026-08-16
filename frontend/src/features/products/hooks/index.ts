@@ -10,11 +10,15 @@ import type { UpdateProductInput } from '../model/index.ts';
 
 export const productKeys = {
   all: ['products'] as const,
+  list: (page: number, limit: number) => ['products', 'list', page, limit] as const,
   detail: (id: string) => ['products', id] as const,
 };
 
-export function useProducts() {
-  return useQuery({ queryKey: productKeys.all, queryFn: fetchProducts });
+export function useProducts(page: number, limit: number) {
+  return useQuery({
+    queryKey: productKeys.list(page, limit),
+    queryFn: () => fetchProducts(page, limit),
+  });
 }
 
 export function useProduct(id: string) {

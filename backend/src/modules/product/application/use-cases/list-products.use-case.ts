@@ -4,6 +4,7 @@ import {
   IProductRepository,
   PRODUCT_REPOSITORY,
 } from '../../domain/repositories/product.repository.interface';
+import { PaginatedProductsDto } from '../dtos/paginated-products.dto';
 import { ProductDto } from '../dtos/product.dto';
 
 @Injectable()
@@ -13,9 +14,14 @@ export class ListProductsUseCase {
     private readonly productRepository: IProductRepository,
   ) {}
 
-  async execute(): Promise<ProductDto[]> {
-    const products = await this.productRepository.findAll();
-    return products.map(toProductDto);
+  async execute(page: number, limit: number): Promise<PaginatedProductsDto> {
+    const { items, total } = await this.productRepository.findPaginated(page, limit);
+    return {
+      data: items.map(toProductDto),
+      total,
+      page,
+      limit,
+    };
   }
 }
 

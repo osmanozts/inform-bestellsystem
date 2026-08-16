@@ -2,6 +2,7 @@ import { z } from 'zod';
 import type { components } from '../../../shared/api/index.ts';
 
 export type Product = components['schemas']['ProductResponseDto'];
+export type ProductPage = components['schemas']['PaginatedProductsResponseDto'];
 export type CreateProductInput = components['schemas']['CreateProductRequestDto'];
 export type UpdateProductInput = components['schemas']['UpdateProductRequestDto'];
 

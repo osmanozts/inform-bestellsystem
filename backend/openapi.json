@@ -18,23 +18,44 @@
     "/products": {
       "get": {
         "operationId": "ProductController_findAll",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Seitennummer (1-basiert)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Einträge pro Seite",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 10,
+              "type": "number"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ProductResponseDto"
-                  }
+                  "$ref": "#/components/schemas/PaginatedProductsResponseDto"
                 }
               }
             }
           }
         },
-        "summary": "Alle Produkte auflisten",
+        "summary": "Produkte paginiert auflisten",
         "tags": [
           "products"
         ]
@@ -311,6 +332,35 @@
           "name",
           "price",
           "stock"
+        ]
+      },
+      "PaginatedProductsResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductResponseDto"
+            }
+          },
+          "total": {
+            "type": "number",
+            "example": 42
+          },
+          "page": {
+            "type": "number",
+            "example": 1
+          },
+          "limit": {
+            "type": "number",
+            "example": 10
+          }
+        },
+        "required": [
+          "data",
+          "total",
+          "page",
+          "limit"
         ]
       },
       "CreateProductRequestDto": {

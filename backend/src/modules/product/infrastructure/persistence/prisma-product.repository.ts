@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../../shared/prisma/prisma.service';
 import { Product } from '../../domain/entities/product.entity';
-import { IProductRepository } from '../../domain/repositories/product.repository.interface';
+import {
+  IProductRepository,
+  ProductPage,
+} from '../../domain/repositories/product.repository.interface';
 import { ProductId } from '../../domain/value-objects/product-id.vo';
 import { ProductMapper } from './product.mapper';
 
@@ -19,6 +22,15 @@ export class PrismaProductRepository implements IProductRepository {
   async findAll(): Promise<Product[]> {
     const raws = await this.prisma.client.product.findMany();
     return raws.map(ProductMapper.toDomain);
+  }
+
+  async findPaginated(page: number, limit: number): Promise<ProductPage> {
+    const skip = (page - 1) * limit;
+    const [raws, total] = await Promise.all([
+      this.prisma.client.product.findMany({ skip, take: limit, orderBy: { createdAt: 'asc' } }),
+      this.prisma.client.product.count(),
+    ]);
+    return { items: raws.map(ProductMapper.toDomain), total };
   }
 
   async save(product: Product): Promise<void> {

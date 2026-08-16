@@ -8,6 +8,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import {
   ApiNoContentResponse,
@@ -22,6 +23,8 @@ import { GetProductUseCase } from '../application/use-cases/get-product.use-case
 import { ListProductsUseCase } from '../application/use-cases/list-products.use-case';
 import { UpdateProductUseCase } from '../application/use-cases/update-product.use-case';
 import { CreateProductRequestDto } from './dtos/create-product.request.dto';
+import { ListProductsQueryDto } from './dtos/list-products.query.dto';
+import { PaginatedProductsResponseDto } from './dtos/paginated-products.response.dto';
 import { ProductResponseDto } from './dtos/product.response.dto';
 import { UpdateProductRequestDto } from './dtos/update-product.request.dto';
 
@@ -37,11 +40,11 @@ export class ProductController {
   ) {}
 
   @Get()
-  @ApiOperation({ summary: 'Alle Produkte auflisten' })
-  @ApiResponse({ status: 200, type: [ProductResponseDto] })
-  async findAll(): Promise<ProductResponseDto[]> {
-    const products = await this.listProducts.execute();
-    return products.map(ProductResponseDto.from);
+  @ApiOperation({ summary: 'Produkte paginiert auflisten' })
+  @ApiResponse({ status: 200, type: PaginatedProductsResponseDto })
+  async findAll(@Query() query: ListProductsQueryDto): Promise<PaginatedProductsResponseDto> {
+    const result = await this.listProducts.execute(query.page, query.limit);
+    return PaginatedProductsResponseDto.from(result);
   }
 
   @Get(':id')

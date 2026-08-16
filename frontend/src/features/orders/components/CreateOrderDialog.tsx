@@ -16,7 +16,8 @@ type Props = {
 };
 
 export function CreateOrderDialog({ open, onClose }: Props) {
-  const { data: products } = useProducts();
+  const { data: productsPage } = useProducts(1, 100);
+  const products = productsPage?.data;
   const createOrder = useCreateOrder();
 
   const {
