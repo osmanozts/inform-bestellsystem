@@ -59,7 +59,7 @@ Ich habe mit der Infrastruktur begonnen: Docker-Compose für Postgres, `.env`-Da
 
 Im Backend habe ich mich strikt schichtenweise von innen nach außen vorgearbeitet: zuerst Domain (Entities, Value Objects, Repository-Interfaces, Fehler-Hierarchie), dann Application (Use Cases), dann Infrastructure (Prisma-Repositories, Mapper), schließlich Presentation (Controller, DTOs, Exception-Filter). Erst nach Abschluss von `product` habe ich `order` in derselben Reihenfolge umgesetzt.
 
-Nachdem beide Module liefen, habe ich die OpenAPI-Spezifikation als statische Datei generiert und die Swagger-UI eingebunden. Einige Domain-Entities habe ich mit Unit-Tests abgesichert, um das Verhalten der Geschäftsregeln (z. B. `decreaseStock`, `Money`-Validierung) isoliert zu dokumentieren.
+Nachdem beide Module liefen, habe ich die OpenAPI-Spezifikation als statische Datei generiert und die Swagger-UI eingebunden. Anschließend habe ich Unit-Tests auf zwei Ebenen ergänzt: Domain-Entity-Tests belegen die Geschäftsregeln ohne jede externe Abhängigkeit; Use-Case-Tests mit In-Memory-Repository-Implementierungen zeigen, dass die Anwendungsschicht vollständig ohne Datenbankverbindung und ohne NestJS-Bootstrap testbar ist — das ist der konkrete Nutzen der Onion Architecture. Eine GitHub-Actions-Pipeline führt diese Tests bei jedem Push automatisch aus.
 
 Das Frontend habe ich feature-basiert aufgebaut: zunächst den typisierten API-Client auf Basis der generierten Spec, dann produktseitig Hooks, Formulare und Tabelle, danach dasselbe für Bestellungen. Die Demo-User-Kontext-Schicht kam am Ende, um das Bestellformular mit einer festen Benutzer-ID zu versorgen.
 
@@ -150,7 +150,14 @@ npm run generate:api
 
 Das aktualisiert `src/shared/api/schema.ts`.
 
-### 5. Frontend starten
+### 5. Backend-Tests ausführen
+
+```bash
+# im backend-Verzeichnis
+npm test
+```
+
+### 6. Frontend starten
 
 ```bash
 # im frontend-Verzeichnis
@@ -175,6 +182,8 @@ Das Frontend läuft auf `http://localhost:5173`.
 | Typisierter API-Client                     | `frontend/src/shared/api/client.ts`                   |
 | Generierte API-Typen                       | `frontend/src/shared/api/schema.ts`                   |
 | Feature-Slices                             | `frontend/src/features/{products,orders}/`            |
+| Unit-Tests (Domain + Use Cases)            | `backend/src/**/*.spec.ts`                            |
+| CI-Pipeline                                | `.github/workflows/ci.yml`                            |
 
 ---
 
