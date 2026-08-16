@@ -1,16 +1,18 @@
-import { Box, Heading, Text } from '@chakra-ui/react';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { AppLayout } from './AppLayout.tsx';
+import { ProductsPage } from '../features/products/pages/index.ts';
+import { OrdersPage } from '../features/orders/pages/index.ts';
 
 export default function App() {
   return (
-    <Box minH="100vh" bg="gray.50">
-      <Box as="header" bg="white" borderBottomWidth="1px" px={8} py={4}>
-        <Heading size="md" color="blue.700">
-          Inform Bestellsystem
-        </Heading>
-      </Box>
-      <Box as="main" p={8}>
-        <Text color="gray.500">Anwendung wird geladen…</Text>
-      </Box>
-    </Box>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<AppLayout />}>
+          <Route index element={<Navigate to="/products" replace />} />
+          <Route path="/products" element={<ProductsPage />} />
+          <Route path="/orders" element={<OrdersPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
