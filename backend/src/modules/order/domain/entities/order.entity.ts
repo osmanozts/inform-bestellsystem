@@ -36,23 +36,46 @@ export class Order {
       });
     });
 
-    return new Order(OrderId.create(props.id), props.userId, orderItems, new Date());
+    return new Order(
+      OrderId.create(props.id),
+      props.userId,
+      orderItems,
+      new Date(),
+    );
   }
 
   static reconstitute(props: {
     id: string;
     userId: string;
     createdAt: Date;
-    items: Array<{ id: string; productId: string; quantity: number; unitPrice: number }>;
+    items: Array<{
+      id: string;
+      productId: string;
+      quantity: number;
+      unitPrice: number;
+    }>;
   }): Order {
     const items = props.items.map((item) => OrderItem.create(item));
-    return new Order(OrderId.create(props.id), props.userId, items, props.createdAt);
+    return new Order(
+      OrderId.create(props.id),
+      props.userId,
+      items,
+      props.createdAt,
+    );
   }
 
-  get id(): OrderId { return this._id; }
-  get userId(): string { return this._userId; }
-  get items(): OrderItem[] { return [...this._items]; }
-  get createdAt(): Date { return this._createdAt; }
+  get id(): OrderId {
+    return this._id;
+  }
+  get userId(): string {
+    return this._userId;
+  }
+  get items(): OrderItem[] {
+    return [...this._items];
+  }
+  get createdAt(): Date {
+    return this._createdAt;
+  }
   get totalPrice(): number {
     return this._items.reduce((sum, item) => sum + item.subtotal, 0);
   }

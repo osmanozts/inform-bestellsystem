@@ -27,7 +27,11 @@ export class PrismaProductRepository implements IProductRepository {
   async findPaginated(page: number, limit: number): Promise<ProductPage> {
     const skip = (page - 1) * limit;
     const [raws, total] = await Promise.all([
-      this.prisma.client.product.findMany({ skip, take: limit, orderBy: { createdAt: 'asc' } }),
+      this.prisma.client.product.findMany({
+        skip,
+        take: limit,
+        orderBy: { createdAt: 'asc' },
+      }),
       this.prisma.client.product.count(),
     ]);
     return { items: raws.map(ProductMapper.toDomain), total };

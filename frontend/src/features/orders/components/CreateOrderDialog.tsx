@@ -8,7 +8,8 @@ import { useCreateOrder } from '../hooks/index.ts';
 import { useProducts } from '../../products/hooks/index.ts';
 import { orderSchema } from '../model/index.ts';
 import type { OrderFormValues } from '../model/index.ts';
-import { formatCurrency, DEMO_USER_ID } from '../../../shared/utils/index.ts';
+import { formatCurrency } from '../../../shared/utils/index.ts';
+import { useUser } from '../../../app/user-context.ts';
 
 type Props = {
   open: boolean;
@@ -19,6 +20,7 @@ export function CreateOrderDialog({ open, onClose }: Props) {
   const { data: productsPage } = useProducts(1, 100);
   const products = productsPage?.data;
   const createOrder = useCreateOrder();
+  const user = useUser();
 
   const {
     register,
@@ -39,7 +41,7 @@ export function CreateOrderDialog({ open, onClose }: Props) {
 
   const onSubmit = handleSubmit((values) => {
     createOrder.mutate(
-      { userId: DEMO_USER_ID, items: values.items },
+      { userId: user.id, items: values.items },
       {
         onSuccess: () => {
           toaster.create({ type: 'success', title: 'Bestellung erfolgreich aufgegeben.' });

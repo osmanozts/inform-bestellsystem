@@ -42,7 +42,9 @@ export class ProductController {
   @Get()
   @ApiOperation({ summary: 'Produkte paginiert auflisten' })
   @ApiResponse({ status: 200, type: PaginatedProductsResponseDto })
-  async findAll(@Query() query: ListProductsQueryDto): Promise<PaginatedProductsResponseDto> {
+  async findAll(
+    @Query() query: ListProductsQueryDto,
+  ): Promise<PaginatedProductsResponseDto> {
     const result = await this.listProducts.execute(query.page, query.limit);
     return PaginatedProductsResponseDto.from(result);
   }
@@ -61,7 +63,9 @@ export class ProductController {
   @ApiOperation({ summary: 'Neues Produkt anlegen' })
   @ApiResponse({ status: 201, type: ProductResponseDto })
   @ApiResponse({ status: 400, description: 'Validierungsfehler' })
-  async create(@Body() dto: CreateProductRequestDto): Promise<ProductResponseDto> {
+  async create(
+    @Body() dto: CreateProductRequestDto,
+  ): Promise<ProductResponseDto> {
     const product = await this.createProduct.execute(dto);
     return ProductResponseDto.from(product);
   }

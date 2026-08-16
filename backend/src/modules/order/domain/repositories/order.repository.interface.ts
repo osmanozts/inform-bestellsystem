@@ -7,5 +7,8 @@ export const ORDER_REPOSITORY = Symbol('IOrderRepository');
 export interface IOrderRepository {
   findById(id: OrderId): Promise<Order | null>;
   findAll(): Promise<Order[]>;
-  createWithStockUpdate(order: Order, updatedProducts: Product[]): Promise<void>;
+  createWithStockUpdate(
+    order: Order,
+    updatedProducts: Product[],
+  ): Promise<void>;
 }

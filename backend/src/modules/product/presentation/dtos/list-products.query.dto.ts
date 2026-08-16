@@ -3,14 +3,23 @@ import { Type } from 'class-transformer';
 import { IsInt, IsOptional, Max, Min } from 'class-validator';
 
 export class ListProductsQueryDto {
-  @ApiPropertyOptional({ description: 'Seitennummer (1-basiert)', default: 1, minimum: 1 })
+  @ApiPropertyOptional({
+    description: 'Seitennummer (1-basiert)',
+    default: 1,
+    minimum: 1,
+  })
   @IsOptional()
   @Type(() => Number)
   @IsInt()
   @Min(1)
   page: number = 1;
 
-  @ApiPropertyOptional({ description: 'Einträge pro Seite', default: 8, minimum: 1, maximum: 100 })
+  @ApiPropertyOptional({
+    description: 'Einträge pro Seite',
+    default: 8,
+    minimum: 1,
+    maximum: 100,
+  })
   @IsOptional()
   @Type(() => Number)
   @IsInt()

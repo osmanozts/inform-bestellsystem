@@ -25,7 +25,10 @@ export class PrismaOrderRepository implements IOrderRepository {
     return raws.map(OrderMapper.toDomain);
   }
 
-  async createWithStockUpdate(order: Order, updatedProducts: Product[]): Promise<void> {
+  async createWithStockUpdate(
+    order: Order,
+    updatedProducts: Product[],
+  ): Promise<void> {
     await this.prisma.client.$transaction(async (tx) => {
       await tx.order.create({
         data: {

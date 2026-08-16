@@ -46,7 +46,10 @@ export class CreateOrderUseCase {
       products as Product[],
     );
 
-    await this.orderRepository.createWithStockUpdate(order, products as Product[]);
+    await this.orderRepository.createWithStockUpdate(
+      order,
+      products as Product[],
+    );
 
     return toOrderDto(order);
   }

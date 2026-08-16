@@ -1,6 +1,7 @@
 import { Box, Flex, Heading, Text } from '@chakra-ui/react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { Toaster } from '../shared/ui/index.ts';
+import { useUser } from './user-context.ts';
 
 const NAV_ITEMS = [
   { to: '/products', label: 'Produkte' },
@@ -8,6 +9,8 @@ const NAV_ITEMS = [
 ];
 
 export function AppLayout() {
+  const user = useUser();
+
   return (
     <Box minH="100vh" bg="gray.50">
       <Box as="header" bg="white" borderBottomWidth="1px" borderColor="gray.200" px={8} py={0}>
@@ -15,7 +18,7 @@ export function AppLayout() {
           <Heading size="sm" color="blue.700" whiteSpace="nowrap">
             Inform Bestellsystem
           </Heading>
-          <Flex as="nav" gap={1}>
+          <Flex as="nav" gap={1} flex={1}>
             {NAV_ITEMS.map(({ to, label }) => (
               <NavLink key={to} to={to}>
                 {({ isActive }) => (
@@ -38,6 +41,12 @@ export function AppLayout() {
               </NavLink>
             ))}
           </Flex>
+          <Text fontSize="xs" color="gray.400" whiteSpace="nowrap">
+            Angemeldet als{' '}
+            <Text as="span" fontWeight="semibold" color="gray.500">
+              {user.displayName}
+            </Text>
+          </Text>
         </Flex>
       </Box>
 

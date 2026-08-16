@@ -15,7 +15,10 @@ export class ListProductsUseCase {
   ) {}
 
   async execute(page: number, limit: number): Promise<PaginatedProductsDto> {
-    const { items, total } = await this.productRepository.findPaginated(page, limit);
+    const { items, total } = await this.productRepository.findPaginated(
+      page,
+      limit,
+    );
     return {
       data: items.map(toProductDto),
       total,
