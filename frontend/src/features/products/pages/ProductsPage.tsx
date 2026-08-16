@@ -9,7 +9,7 @@ import {
 } from '../components/index.ts';
 import type { Product } from '../model/index.ts';
 
-const PAGE_LIMIT = 10;
+const PAGE_LIMIT = 8;
 
 type FormDialogState = { open: boolean; product?: Product };
 

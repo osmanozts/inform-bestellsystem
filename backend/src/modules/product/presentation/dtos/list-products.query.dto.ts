@@ -10,11 +10,11 @@ export class ListProductsQueryDto {
   @Min(1)
   page: number = 1;
 
-  @ApiPropertyOptional({ description: 'Einträge pro Seite', default: 10, minimum: 1, maximum: 100 })
+  @ApiPropertyOptional({ description: 'Einträge pro Seite', default: 8, minimum: 1, maximum: 100 })
   @IsOptional()
   @Type(() => Number)
   @IsInt()
   @Min(1)
   @Max(100)
-  limit: number = 10;
+  limit: number = 8;
 }
