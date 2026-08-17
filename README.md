@@ -197,3 +197,31 @@ Eine `CANCELLED`-Status-Spalte in `Order` plus ein `cancel`-Use-Case, der den St
 
 **Bestellungen bearbeiten**
 Eine Bearbeitung aufgegebener Bestellungen ist technisch denkbar, erfordert aber vorab Klärung mit dem Product Owner. Die Aufgabenstellung lässt viele Fragen offen: Darf die Produktauswahl geändert werden oder nur die Menge? Was passiert mit dem Lagerbestand — wird er bei Mengenänderung sofort angepasst oder erst beim Speichern? Wie verhält sich der historisierte `unitPrice`, wenn sich der Produktpreis zwischenzeitlich geändert hat? Gibt es einen Zeitraum, nach dem eine Bestellung nicht mehr bearbeitet werden kann? Ohne Antworten auf diese Fragen lässt sich kein konsistentes Datenmodell entwerfen — hier ist Refinement vor Implementierung zwingend.
+
+---
+
+## KI-Nutzung und Transparenz
+
+### Wo ich KI eingesetzt habe
+
+**Repetitive Boilerplate nach bestehendem Muster**
+Sobald ein Muster im Code etabliert war, habe ich KI zur Erstgenerierung strukturell ähnlicher Dateien genutzt. Beispiel: `create-order.use-case.ts` wurde auf Basis des bereits fertiggestellten `create-product.use-case.ts` generiert und anschließend manuell auf die Order-spezifische Logik angepasst. Wichtig: KI kam hier erst zum Einsatz, nachdem ich den Kontext selbst erarbeitet hatte nicht als Ausgangspunkt.
+
+Ähnliches gilt für das Prisma-Schema: Die Entitäten `Product`, `Order` und `OrderItem` mit ihren Grundeigenschaften waren durch die Aufgabenstellung vorgegeben. Die konkrete Umsetzung — `snake_case`-Mapping via `@map`/`@@map`, `Decimal(10,2)` für Geldbeträge, `unitPrice` als historisierte Spalte in `OrderItem`, `onDelete: Cascade` auf der Order-Relation habe ich selbst durchdacht und modelliert.
+
+**OpenAPI-Annotationen**
+Das Hinzufügen von `@ApiProperty`, `@ApiOperation` und `@ApiResponse` Dekorationen in DTOs und Controllern ist inhaltlich repetitiv und fehleranfällig. Hier habe ich KI-Unterstützung genutzt, jede Ausgabe aber vor der Übernahme einzeln geprüft.
+
+**CodeGen-Skript**
+Beim Aufsetzen von `backend/scripts/generate-openapi.ts`, dem Skript, das die NestJS-App headless startet und die OpenAPI-Spec als statische Datei schreibt, habe ich KI zur Unterstützung herangezogen.
+
+**Tests**
+KI half beim Identifizieren sinnvoller Testfälle und lieferte eine initiale Implementierung für `order.entity.spec.ts` und `create-order.use-case.spec.ts`.
+
+**Dokumentation**
+Bei Formulierungen und der Markdown-Struktur dieser README habe ich KI-Unterstützung genutzt.
+
+### Wo ich bewusst auf KI verzichtet habe
+
+**Architektonische Kernentscheidungen**
+Der Schicht-Schnitt der Onion Architecture, die Abhängigkeitsrichtung, die Entscheidung welche Regel in welcher Schicht liegt — diese Entscheidungen habe ich selbst getroffen. KI kann etablierte Architekturmuster reproduzieren, aber das saubere Erkennen der Domänengrenzen und das konsequente Einhalten der Schichtgrenzen im konkreten fachlichen Kontext erfordert ein Verständnis, das nicht delegierbar ist.
