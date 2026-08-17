@@ -192,6 +192,9 @@ Das Frontend läuft auf `http://localhost:5173`.
 **Echte Authentifizierung**
 Der Demo-User-Kontext kann durch ein JWT-basiertes Auth-System ersetzt werden. `userId` fließt bereits als Parameter durch alle Schichten — der Umbau beschränkt sich auf Presentation und den Frontend-Kontext.
 
+**Theme Datei**
+Eine Theme Datei die alle Brand spezifischen Farben, Größen, Abstände etc. in wiederverwendbaren Tokens definiert und in den Komponenten statt Hardcoded Werten verwendet wird
+
 **Bestellstornierung**
 Eine `CANCELLED`-Status-Spalte in `Order` plus ein `cancel`-Use-Case, der den Stock transaktional zurückbucht. Die Domänen-Invarianten sind bereits klar genug, um das ohne strukturelle Änderungen ergänzen zu können.
 
