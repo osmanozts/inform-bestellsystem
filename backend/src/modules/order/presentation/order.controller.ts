@@ -14,7 +14,6 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { OrderDto } from '../application/dtos/order.dto';
 import { CreateOrderUseCase } from '../application/use-cases/create-order.use-case';
 import { GetOrderUseCase } from '../application/use-cases/get-order.use-case';
 import { ListOrdersUseCase } from '../application/use-cases/list-orders.use-case';
@@ -31,7 +30,7 @@ export class OrderController {
   ) {}
 
   @Get()
-  @ApiOperation({ summary: 'All orders' })
+  @ApiOperation({ summary: 'Bestellungen auflisten' })
   @ApiResponse({ status: 200, type: [OrderResponseDto] })
   async findAll(): Promise<OrderResponseDto[]> {
     const orders = await this.listOrders.execute();
@@ -39,9 +38,9 @@ export class OrderController {
   }
 
   @Get(':id')
-  @ApiOperation({ summary: 'Order by ID' })
+  @ApiOperation({ summary: 'Bestellung per ID laden' })
   @ApiResponse({ status: 200, type: OrderResponseDto })
-  @ApiNotFoundResponse({ description: 'Order not found' })
+  @ApiNotFoundResponse({ description: 'Bestellung nicht gefunden' })
   async findOne(@Param('id') id: string): Promise<OrderResponseDto> {
     const order = await this.getOrder.execute(id);
     return OrderResponseDto.from(order);
@@ -49,12 +48,13 @@ export class OrderController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  @ApiOperation({ summary: 'Place a new order' })
+  @ApiOperation({ summary: 'Neue Bestellung aufgeben' })
   @ApiResponse({ status: 201, type: OrderResponseDto })
-  @ApiResponse({ status: 400, description: 'Validation error' })
-  @ApiNotFoundResponse({ description: 'Product not found' })
-  @ApiConflictResponse({ description: 'Insufficient stock' })
-  async create(@Body() dto: CreateOrderRequestDto): Promise<OrderDto> {
-    return this.createOrder.execute(dto);
+  @ApiResponse({ status: 400, description: 'Validierungsfehler' })
+  @ApiNotFoundResponse({ description: 'Produkt nicht gefunden' })
+  @ApiConflictResponse({ description: 'Nicht genug Lagerbestand' })
+  async create(@Body() dto: CreateOrderRequestDto): Promise<OrderResponseDto> {
+    const order = await this.createOrder.execute(dto);
+    return OrderResponseDto.from(order);
   }
 }
